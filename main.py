@@ -4,49 +4,49 @@ from typing import List
 
 app = FastAPI()
 
-# Modelo de datos para una persona
-class Person(BaseModel):
+# Modelo de datos para un vendedor
+class Seller(BaseModel):
     name: str
     age: int
     email: str
     id: int
 
-# Lista para almacenar personas (simulación de base de datos)
-people_db = []
+# Lista para almacenar vendedores (simulación de base de datos)
+sellers_db = []
 
-# Operación para crear una persona
-@app.post("/persona/", response_model=Person)
-def create_person(person: Person):
-    people_db.append(person)
-    return person
+# Operación para crear un vendedor
+@app.post("/vendedor/", response_model=Seller)
+def create_seller(seller: Seller):
+    sellers_db.append(seller)
+    return seller
 
-# Operación para obtener todas las personas
-@app.get("/persona/", response_model=List[Person])
-def get_all_people():
-    return people_db
+# Operación para obtener todos los vendedores
+@app.get("/vendedor/", response_model=List[Seller])
+def get_all_sellers():
+    return sellers_db
 
-# Operación para obtener una persona por ID
-@app.get("/persona/{person_id}", response_model=Person)
-def get_person_by_id(person_id: int):
-    for person in people_db:
-        if person.id == person_id:
-            return person
-    raise HTTPException(status_code=404, detail="Persona no encontrada")
+# Operación para obtener un vendedor por ID
+@app.get("/vendedor/{seller_id}", response_model=Seller)
+def get_seller_by_id(seller_id: int):
+    for seller in sellers_db:
+        if seller.id == seller_id:
+            return seller
+    raise HTTPException(status_code=404, detail="Vendedor no encontrado")
 
-# Operación para editar una persona por ID
-@app.put("/persona/{person_id}", response_model=Person)
-def update_person(person_id: int, updated_person: Person):
-    for index, person in enumerate(people_db):
-        if person.id == person_id:
-            people_db[index] = updated_person
-            return updated_person
-    raise HTTPException(status_code=404, detail="Persona no encontrada")
+# Operación para editar un vendedor por ID
+@app.put("/vendedor/{seller_id}", response_model=Seller)
+def update_seller(seller_id: int, updated_seller: Seller):
+    for index, seller in enumerate(sellers_db):
+        if seller.id == seller_id:
+            sellers_db[index] = updated_seller
+            return updated_seller
+    raise HTTPException(status_code=404, detail="Vendedor no encontrado")
 
-# Operación para eliminar una persona por ID
-@app.delete("/persona/{person_id}", response_model=Person)
-def delete_person(person_id: int):
-    for index, person in enumerate(people_db):
-        if person.id == person_id:
-            deleted_person = people_db.pop(index)
-            return deleted_person
-    raise HTTPException(status_code=404, detail="Persona no encontrada")
+# Operación para eliminar un vendedor por ID
+@app.delete("/vendedor/{seller_id}", response_model=Seller)
+def delete_seller(seller_id: int):
+    for index, seller in enumerate(sellers_db):
+        if seller.id == seller_id:
+            deleted_seller = sellers_db.pop(index)
+            return deleted_seller
+    raise HTTPException(status_code=404, detail="Vendedor no encontrado")

@@ -3,7 +3,7 @@
 ## Autor
 
 **Felipe David Quiñonez Cuenca**
-- Correo Electrónico: [fdquinones@utpl.edu.ec](mailto:fdquinones@utpl.edu.ec)
+- Correo Electrónico: [erachote@utpl.edu.ec](mailto:erachote@utpl.edu.ec)
 - GitHub: [fdquinones1986](https://github.com/fdquinones1986)
 
 Este proyecto proporciona los elementos necesarios para crear un API básica con operaciones CRUD sobre entidades de personas. Sigue estos pasos para comenzar a trabajar con el repositorio:
