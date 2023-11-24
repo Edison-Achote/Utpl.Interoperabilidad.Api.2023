@@ -10,6 +10,8 @@ class Seller(BaseModel):
     age: int
     email: str
     id: int
+    identification: str
+    city: str
 
 # Lista para almacenar vendedores (simulación de base de datos)
 sellers_db = []
