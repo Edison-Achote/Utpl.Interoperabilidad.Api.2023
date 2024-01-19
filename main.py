@@ -2,7 +2,26 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
 
-app = FastAPI()
+app = FastAPI(
+    title="API de vendedores",
+    description="API para vendedore",
+    version="1.0.1",
+    contact={
+        "name": "Edison Achote ",
+        "email": "erachote@gmail.com",
+        "url": "https://github.com/Edison-Achote/Utpl.Interoperabilidad.Api.2023"
+    },
+    license_info={
+        "name": "MIT License",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    openapi_tags=[
+        {
+            "name": "Persona",
+            "description": "Operaciones para el manejo de personas"
+        }
+    ]
+)
 
 # Modelo de datos para un vendedor
 class Seller(BaseModel):
