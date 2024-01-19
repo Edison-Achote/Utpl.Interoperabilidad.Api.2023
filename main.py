@@ -17,7 +17,7 @@ app = FastAPI(
     },
     openapi_tags=[
         {
-            "name": "Persona",
+            "name": "Vendedores",
             "description": "Operaciones para el manejo de personas"
         }
     ]
@@ -36,18 +36,18 @@ class Seller(BaseModel):
 sellers_db = []
 
 # Operación para crear un vendedor
-@app.post("/vendedor/", response_model=Seller)
+@app.post("/vendedor/", response_model=Seller,tags=["Vendedores"])
 def create_seller(seller: Seller):
     sellers_db.append(seller)
     return seller
 
 # Operación para obtener todos los vendedores
-@app.get("/vendedor/", response_model=List[Seller])
+@app.get("/vendedor/", response_model=List[Seller],tags=["Vendedores"])
 def get_all_sellers():
     return sellers_db
 
 # Operación para obtener un vendedor por ID
-@app.get("/vendedor/{seller_id}", response_model=Seller)
+@app.get("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
 def get_seller_by_id(seller_id: int):
     for seller in sellers_db:
         if seller.id == seller_id:
@@ -55,7 +55,7 @@ def get_seller_by_id(seller_id: int):
     raise HTTPException(status_code=404, detail="Vendedor no encontrado")
 
 # Operación para editar un vendedor por ID
-@app.put("/vendedor/{seller_id}", response_model=Seller)
+@app.put("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
 def update_seller(seller_id: int, updated_seller: Seller):
     for index, seller in enumerate(sellers_db):
         if seller.id == seller_id:
@@ -64,7 +64,7 @@ def update_seller(seller_id: int, updated_seller: Seller):
     raise HTTPException(status_code=404, detail="Vendedor no encontrado")
 
 # Operación para eliminar un vendedor por ID
-@app.delete("/vendedor/{seller_id}", response_model=Seller)
+@app.delete("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
 def delete_seller(seller_id: int):
     for index, seller in enumerate(sellers_db):
         if seller.id == seller_id:
