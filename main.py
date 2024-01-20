@@ -50,15 +50,17 @@ def create_seller(seller: Seller):
 # Operación para obtener todos los vendedores
 @app.get("/vendedor/", response_model=List[Seller],tags=["Vendedores"])
 def get_all_sellers():
-    return sellers_db
+    items = list(coleccion.find())
+    return items  
 
 # Operación para obtener un vendedor por ID
 @app.get("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
 def get_seller_by_id(seller_id: int):
-    for seller in sellers_db:
-        if seller.id == seller_id:
-            return seller
-    raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+    item = coleccion.find_one({"id": seller_id})
+    if item is not None:
+        return item
+    else:
+        raise HTTPException(status_code=404, detail="vendedor no encontrado")
 
 # Operación para editar un vendedor por ID
 @app.put("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
@@ -72,8 +74,17 @@ def update_seller(seller_id: int, updated_seller: Seller):
 # Operación para eliminar un vendedor por ID
 @app.delete("/vendedor/{seller_id}", response_model=Seller,tags=["Vendedores"])
 def delete_seller(seller_id: int):
-    for index, seller in enumerate(sellers_db):
-        if seller.id == seller_id:
-            deleted_seller = sellers_db.pop(index)
-            return deleted_seller
-    raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+    result = coleccion.delete_one({"id": seller_id})
+    if result.deleted_count == 1:
+        return result
+    else:
+        raise HTTPException(status_code=404, detail="vendedor no encontrado")    
+
+# Operación para obtener un Vendedor por identificacion
+@app.get("/vendedor/idenficacion/{vendedor_identificacion}", response_model=Seller, tags=["Vendedores"])
+def get_vendedor_by_identification(vendedor_identificacion: str):
+    item = coleccion.find_one({"identification": vendedor_identificacion})
+    if item is not None:
+        return item
+    else:
+        raise HTTPException(status_code=404, detail="vendedor no encontrado")
